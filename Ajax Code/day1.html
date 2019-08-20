@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax</title>
+    <script src="babel.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h4> Hello Sayantini</h4>
+    <table>
+        <thead>
+            <td>ID</td>
+            <td>PRICE</td>
+            <td>QUANTITY</td>
+            <td>CREATED_AT</td>
+        </thead>
+        <tbody id="tdata">
+
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        let tbodyHandle = document.getElementById('tdata');
+
+        function buildRow(item) {
+            let tr = document.createElement('tr');
+            tr.innerHTML = `<td>${item.id}</td>
+            <td>${item.price}</td>
+            <td>${item.quantity}</td>
+            <td>${item.created_at}</td>`
+            tbodyHandle.appendChild(tr);
+        }
+
+        axios.get("https://8a0d310a.ngrok.io/products", { headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }})
+        .then(function(res){
+            console.log(res.data)
+            res.data.map((item) => {
+                buildRow(item)
+            })
+        })
+        .catch(function(e){ console.log(e) })
+    </script>
+</body>
+</html>
