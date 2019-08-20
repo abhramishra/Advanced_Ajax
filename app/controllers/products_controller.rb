@@ -1,10 +1,11 @@
+
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    # prevent_from_corb_and_cors
+    prevent_from_corb_and_cors
     @products = Product.all
     render json: @products.to_json
   end
@@ -63,6 +64,7 @@ class ProductsController < ApplicationController
     end
   end
 
+  # To prevent the allow-control-allow-origin extention you have to execute these line of code
   def prevent_from_corb_and_cors
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
